@@ -5,7 +5,7 @@ import logo from "../../images/Logo.svg";
 import "./Header.css";
 
 const Header = () => {
-  const {user} = useContext(AuthContext)
+  const {user, logout} = useContext(AuthContext)
 // const {user} = useContext(AuthContext)
 
 
@@ -17,9 +17,14 @@ const Header = () => {
         <Link to="/orders">Orders</Link>
         <Link to="/inventory">Inventory</Link>
         <Link to="/about">About</Link>
-        <Link to="/login">Log In</Link>
-        <Link to="/signup">Sign Up</Link>
-        <span>{user?.email}</span>
+        { user?.uid? 
+          <button className="btn-LogOut " onClick={logout}> LogOut </button>
+        :
+          <>
+          <Link to="/login">LogIn</Link>
+        <Link to="/signup">SignUp</Link>
+        </>}
+        <span className="text-white"> <small>{user?.email}</small></span>
 
         {/* <span>{user?.email}</span> */}
       </div>
