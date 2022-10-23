@@ -19,6 +19,7 @@ const UserContext = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const signIn = (email, password) => {
@@ -27,6 +28,7 @@ const UserContext = ({ children }) => {
   };
 
   const logout = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
