@@ -8,6 +8,8 @@ import Inventory from "./components/Inventory/Inventory";
 import { productsAndCartLoader } from "./loaders/productsAndCartLoader";
 import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
+import Shipping from "./components/Shipping/Shipping";
+import PrivateRoute from "./Routes/PrivateRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +30,14 @@ function App() {
         {
           path: "inventory",
           element: <Inventory></Inventory>,
+        },
+        {
+          path: "shipping",
+          element: (
+            <PrivateRoute>
+              <Shipping></Shipping>
+            </PrivateRoute>
+          ),
         },
         {
           path: "about",

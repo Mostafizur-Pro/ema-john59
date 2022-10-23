@@ -1,34 +1,34 @@
 import React, { useContext } from "react";
 import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/UserContext";
 
 const Login = () => {
-   
+  const { signIn } = useContext(AuthContext);
+  let navigate = useNavigate();
 
-const {signIn} = useContext(AuthContext)
-const navigate = useNavigate()
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  console.log("from", from);
 
-const handleSubmit = (event) =>{
-  event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  const form = event.target;
-  const email = form.email.value;
-  const password = form.password.value;
-  
-  
-  signIn(email, password)
-  .then(result=>{
-    const user = result.user
-    console.log(user)
-    form.reset()
-    navigate('/')
-  })
-  .catch(error=>{
-    console.error(error)
-  })
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
-}
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div className="form-container">
       <h1 className="form-title">Login</h1>
